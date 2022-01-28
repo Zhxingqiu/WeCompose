@@ -285,7 +285,9 @@ fun Modifier.offsetPercent(offsetPercentX: Float = 0f, offsetPercentY: Float = 0
 @Preview
 @Composable
 fun ChatBottomBarPreview() {
-    ChatBottomBar {}
+    WeComposeTheme(WeComposeTheme.Theme.Dark) {
+        ChatBottomBar {}
+    }
 }
 
 @Preview
@@ -297,5 +299,7 @@ fun MessageItemPreview() {
 @Preview
 @Composable
 fun MessageItemLeftPreview() {
-    MessageItem(Msg(User.lisi, "吃饭吧？", "14:20"), 1, 1)
+    WeComposeTheme(WeComposeTheme.Theme.Dark) {
+        MessageItem(Msg(User.lisi, "吃饭吧？", "14:20"), 1, 1)
+    }
 }
