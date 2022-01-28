@@ -18,11 +18,15 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.rengwuxian.wecompose.R
 import com.rengwuxian.wecompose.WeViewModel
 import com.rengwuxian.wecompose.data.Chat
+import com.rengwuxian.wecompose.data.Msg
+import com.rengwuxian.wecompose.data.User
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 
 @Composable
@@ -68,6 +72,7 @@ private fun ChatListItem(chat: Chat) {
         .size(48.dp)
         .unread(!chat.msgs.last().read, WeComposeTheme.colors.badge)
         .clip(RoundedCornerShape(4.dp))
+        .align(Alignment.CenterVertically)
     )
     Column(
       Modifier
@@ -75,7 +80,11 @@ private fun ChatListItem(chat: Chat) {
         .align(Alignment.CenterVertically)
     ) {
       Text(chat.friend.name, fontSize = 17.sp, color = WeComposeTheme.colors.textPrimary)
-      Text(chat.msgs.last().text, fontSize = 14.sp, color = WeComposeTheme.colors.textSecondary)
+      Text(
+        chat.msgs.last().text,
+        fontSize = 14.sp,
+        color = WeComposeTheme.colors.textSecondary,
+      )
     }
     Text(
       chat.msgs.last().time,
@@ -90,4 +99,20 @@ fun Modifier.unread(show: Boolean, color: Color): Modifier = this.drawWithConten
   if (show) {
     drawCircle(color, 5.dp.toPx(), Offset(size.width - 1.dp.toPx(), 1.dp.toPx()))
   }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ChatListItemPreview() {
+  ChatListItem(
+    Chat(
+      User("", "A", R.drawable.ic_chat_outlined),
+      arrayListOf(
+        Msg(
+          User("1", "11", R.drawable.ic_chat_outlined),
+          "lai a",
+          "1010"
+        ).apply { read = false })
+    )
+  )
 }
